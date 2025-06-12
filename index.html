@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ Builder - Create Embeddable FAQ Sections</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>FAQ Builder</h1>
+            <div class="header-buttons">
+                <button class="btn btn-secondary" onclick="toggleCustomization()">Customize</button>
+                <button class="btn btn-primary" onclick="generateCode()">Get Code</button>
+            </div>
+        </div>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Editor Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    FAQ Editor
+                </div>
+                <div class="panel-content" id="editor-content">
+                    <div class="editor-section">
+                        <div class="section-title">FAQ Tabs</div>
+                        <div class="tab-list" id="tab-list">
+                            <button class="tab-button active" data-tab="0">General</button>
+                        </div>
+                        <button class="btn btn-secondary" onclick="addTab()">+ Add Tab</button>
+                    </div>
+
+                    <div class="editor-section">
+                        <div class="section-title">Questions & Answers</div>
+                        <div id="faq-items">
+                            <!-- FAQ items will be inserted here -->
+                        </div>
+                        <button class="btn btn-primary" onclick="addFAQItem()">+ Add Question</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Preview Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    Live Preview
+                </div>
+                <div class="panel-content">
+                    <div class="preview-container">
+                        <div id="preview-widget" class="faq-widget">
+                            <div class="empty-state">
+                                <h3>No FAQ items yet</h3>
+                                <p>Add some questions and answers to see the preview</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customization Sidebar -->
+        <div id="customization-sidebar" style="display: none; position: fixed; top: 0; right: 0; width: 300px; height: 100%; background: white; box-shadow: -2px 0 10px rgba(0,0,0,0.1); z-index: 100; padding: 20px; overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3>Customization</h3>
+                <button class="close-btn" onclick="toggleCustomization()">&times;</button>
+            </div>
+
+            <div class="customization-section">
+                <label>Primary Color</label>
+                <input type="color" class="color-input" id="primary-color" value="#DF1783" onchange="updatePrimaryColor(this.value)">
+            </div>
+
+            <div class="customization-section">
+                <label>Display Style</label>
+                <div class="style-options">
+                    <div class="style-option active" onclick="setDisplayStyle('accordion')" data-style="accordion">
+                        Accordion
+                    </div>
+                    <div class="style-option" onclick="setDisplayStyle('tabs')" data-style="tabs">
+                        Tabs
+                    </div>
+                </div>
+            </div>
+
+            <div class="customization-section">
+                <label>Font Size</label>
+                <select class="input" onchange="updateFontSize(this.value)">
+                    <option value="14px">Small</option>
+                    <option value="16px" selected>Medium</option>
+                    <option value="18px">Large</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!-- Code Generation Modal -->
+    <div id="code-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Generated FAQ Code</h2>
+                <button class="close-btn" onclick="closeCodeModal()">&times;</button>
+            </div>
+            <p>Copy this code and paste it into your website where you want the FAQ to appear:</p>
+            <div class="code-block" id="generated-code">
+                <button class="copy-btn" onclick="copyCode()">Copy</button>
+                <pre id="code-content"></pre>
+            </div>
+            <div style="margin-top: 1rem;">
+                <small style="color: #6b7280;">This code is self-contained and doesn't require any external dependencies.</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit FAQ Modal -->
+    <div id="faq-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="faq-modal-title">Add Question</h2>
+                <button class="close-btn" onclick="closeFAQModal()">&times;</button>
+            </div>
+            <div class="input-group">
+                <label>Question</label>
+                <input type="text" class="input" id="faq-question-input" placeholder="Enter your question">
+            </div>
+            <div class="input-group">
+                <label>Answer</label>
+                <textarea class="textarea" id="faq-answer-input" placeholder="Enter the answer" rows="4"></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; justify-content: flex-end;">
+                <button class="btn btn-secondary" onclick="closeFAQModal()">Cancel</button>
+                <button class="btn btn-primary" onclick="saveFAQ()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
