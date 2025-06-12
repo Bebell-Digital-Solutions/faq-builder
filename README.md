@@ -86,4 +86,4 @@ This FAQ Builder is free to use and modify for any purpose.
 
 ---
 
-**Created with ❤️ by MiniMax Agent**
+**Created with ❤️ by Bebell Digital Solutions**
